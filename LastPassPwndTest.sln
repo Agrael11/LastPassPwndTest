@@ -5,6 +5,8 @@ VisualStudioVersion = 17.13.35806.99 d17.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LastPassPwndTest", "LastPassPwndTest\LastPassPwndTest.csproj", "{615E52D5-399C-4615-BBD5-EBF7B1735F62}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CLI-Helper", "C:\Users\olive\sources\repos\LastPassPwndTest\CLI-Helper\CLI-Helper\CLI-Helper.csproj", "{45DB586C-56F9-3318-5732-73387589E7FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{615E52D5-399C-4615-BBD5-EBF7B1735F62}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{615E52D5-399C-4615-BBD5-EBF7B1735F62}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{615E52D5-399C-4615-BBD5-EBF7B1735F62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45DB586C-56F9-3318-5732-73387589E7FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45DB586C-56F9-3318-5732-73387589E7FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45DB586C-56F9-3318-5732-73387589E7FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45DB586C-56F9-3318-5732-73387589E7FC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

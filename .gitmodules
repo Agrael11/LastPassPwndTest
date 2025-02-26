@@ -1,0 +1,3 @@
+[submodule "CLI-Helper"]
+	path = CLI-Helper
+	url = https://github.com/Agrael11/CLI-Helper
