@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-using System.Net;
-using System.Runtime.CompilerServices;
+﻿using CLIHelper;
 
 namespace LastPassPwndTest
 {
@@ -116,6 +114,24 @@ namespace LastPassPwndTest
                 return (int)(choice.KeyChar - '0');
             }
             return -1;
+        }
+
+        private void RegisterArgs()
+        {
+            Config.FullName = "LastPass - HaveIBeenPwned analyzer";
+            Config.Version = "0.1.0";
+            Config.License = "Copyright (C) 2025 Oliver Neuschl\r\nThis software uses GPL 3.0 License";
+            Config.HelpHeader = "LastPass - HaveIBeenPwned analyzer";
+            Config.ErrorOnUnkownArguments = false;
+            Arguments.RegisterArgument("inputfile", new ArgumentDefinition(ArgumentType.String, "inputfile", "if", "Selects input file (cannot be used with -i)", "File Name"));
+            Arguments.RegisterArgument("outputfile", new ArgumentDefinition(ArgumentType.String, "outputfile", "of", "Selects Output File", "File Name"));
+            Arguments.RegisterArgument("howto", new ArgumentDefinition(ArgumentType.Flag, "instructions", "i", "Shows instructions on retrieval of lastpass vault export"));
+            Arguments.RegisterArgument("showall", new ArgumentDefinition(ArgumentType.Flag, "showall", "a", "Shows all Entries"));
+            Arguments.RegisterArgument("showsafe", new ArgumentDefinition(ArgumentType.Flag, "showsafe", "s", "Shows safe Entries only"));
+            Arguments.RegisterArgument("showpwned", new ArgumentDefinition(ArgumentType.Flag, "showpwned", "p", "Shows possibly pwned Entries only"));
+            Arguments.RegisterArgument("help", new ArgumentDefinition(ArgumentType.Flag, "help", "h", "Shows This Information"));
+            Arguments.RegisterArgument("version", new ArgumentDefinition(ArgumentType.Flag, "version", "v", "Shows Version"));
+            Config.HelpExample = "-if \"lastpastexport.csv\" -of \"output.txt\"";
         }
 
         private static void WriteEntry(PasswordEntry entry, bool safe, bool showpassword)
