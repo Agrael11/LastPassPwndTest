@@ -303,7 +303,7 @@ namespace LastPassPwndTest
             Config.Version = "1.0.0";
             Config.License = "Copyright (C) 2025 Oliver Neuschl\r\nThis software uses GPL 3.0 License";
             Config.HelpHeader = "LastPass - HaveIBeenPwned analyzer";
-            Config.ErrorOnUnkownArguments = false;
+            Config.ErrorOnUnkownArguments = true;
             Arguments.RegisterArgument("inputfile", new ArgumentDefinition(ArgumentType.String, "inputfile", "if", "Selects input file (cannot be used with -i)", "File Name"));
             Arguments.RegisterArgument("outputfile", new ArgumentDefinition(ArgumentType.String, "outputfile", "of", "Selects Output File", "File Name"));
             Arguments.RegisterArgument("howto", new ArgumentDefinition(ArgumentType.Flag, "instructions", "i", "Shows instructions on retrieval of lastpass vault export"));
