@@ -1,6 +1,5 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
-using System.Text.Unicode;
 
 namespace LastPassPwndTest
 {
@@ -21,7 +20,7 @@ namespace LastPassPwndTest
         }
 
 
-        public string getSHA1Password()
+        public string GetSHA1Password()
         {
             var data = SHA1.HashData(Encoding.UTF8.GetBytes(Password));
             var builder = new StringBuilder();
