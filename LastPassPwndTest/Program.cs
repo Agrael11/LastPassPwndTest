@@ -40,9 +40,6 @@ namespace LastPassPwndTest
                 Console.WriteLine("WE RECOMMEND DELETNG THIS FILE AFTER USING IT!");
                 return;
             }
-            //Help
-            //Versioin
-            //HowTo
 
             Arguments.ParseArguments(args);
             if (Arguments.IsArgumentSet("inputfile"))
