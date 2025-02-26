@@ -75,16 +75,16 @@ namespace LastPassPwndTest
             {
                 if (Arguments.IsArgumentSet("showsafe"))
                 {
-                    ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), false);
+                    ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), true);
                 }
                 else if (Arguments.IsArgumentSet("showpwned"))
                 {
-                    ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), false);
+                    ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), true);
                 }
                 else if (Arguments.IsArgumentSet("showall"))
                 {
-                    ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), false);
-                    ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), false);
+                    ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), true);
+                    ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), true);
                 }
                 else
                 {
@@ -97,16 +97,16 @@ namespace LastPassPwndTest
                 string result;
                 if (Arguments.IsArgumentSet("showsafe"))
                 {
-                    result = ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), true);
+                    result = ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), false);
                 }
                 else if (Arguments.IsArgumentSet("showpwned"))
                 {
-                    result = ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), true);
+                    result = ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), false);
                 }
                 else
                 {
-                    result = ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), true);
-                    result += ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), true);
+                    result = ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), false);
+                    result += ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), false);
                 }
                 File.WriteAllText(outputFile, result);
             }
