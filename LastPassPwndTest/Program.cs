@@ -37,7 +37,7 @@ namespace LastPassPwndTest
                 Console.WriteLine("Step 4: Select Export");
                 Console.WriteLine("Step 5: Save the result as .csv file");
                 Console.WriteLine();
-                Console.WriteLine("WARNING! THIIS WILL EXPORT YOUR PASSWORD IN PLAIN TEXT. KEEP IT SAFE!");
+                Console.WriteLine("WARNING! THIS WILL EXPORT YOUR PASSWORD IN PLAIN TEXT. KEEP IT SAFE!");
                 Console.WriteLine("WE RECOMMEND DELETNG THIS FILE AFTER USING IT!");
                 return;
             }
@@ -75,16 +75,16 @@ namespace LastPassPwndTest
             {
                 if (Arguments.IsArgumentSet("showsafe"))
                 {
-                    ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), true);
+                    ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), false);
                 }
                 else if (Arguments.IsArgumentSet("showpwned"))
                 {
-                    ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), true);
+                    ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), false);
                 }
                 else if (Arguments.IsArgumentSet("showall"))
                 {
-                    ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), true);
-                    ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), true);
+                    ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), false);
+                    ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), false);
                 }
                 else
                 {
@@ -160,6 +160,7 @@ namespace LastPassPwndTest
                     Console.WriteLine("[POSSIBLY PWNED]");
                 }
             }
+            Console.ForegroundColor = defaultColor;
             return result;
         }
 
@@ -312,6 +313,7 @@ namespace LastPassPwndTest
             Arguments.RegisterArgument("includepassword", new ArgumentDefinition(ArgumentType.Flag, "includepassword", "ip", "Includes password in the list"));
             Arguments.RegisterArgument("help", new ArgumentDefinition(ArgumentType.Flag, "help", "h", "Shows This Information"));
             Arguments.RegisterArgument("version", new ArgumentDefinition(ArgumentType.Flag, "version", "v", "Shows Version"));
+            Config.HelpFooter = "This software compares your exported LastPasss passwords to HaveIBeenPwned database";
             Config.HelpExample = "-if \"lastpastexport.csv\" -of \"output.txt\"";
         }
     }
