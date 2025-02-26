@@ -14,6 +14,7 @@ namespace LastPassPwndTest
         static void Main(string[] args)
         {
             RegisterArgs();
+            Arguments.ParseArguments(args);
             string? inputFile = null;
 
             if (Arguments.IsArgumentSet("help"))
@@ -41,7 +42,6 @@ namespace LastPassPwndTest
                 return;
             }
 
-            Arguments.ParseArguments(args);
             if (Arguments.IsArgumentSet("inputfile"))
             {
                 inputFile = (string)Arguments.GetArgumentData("inputfile");
