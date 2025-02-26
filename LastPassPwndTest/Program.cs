@@ -14,7 +14,15 @@ namespace LastPassPwndTest
         static void Main(string[] args)
         {
             RegisterArgs();
-            Arguments.ParseArguments(args);
+            try
+            {
+                Arguments.ParseArguments(args);
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"[ERROR] Unkown Argument: " + ex.Message);
+                return;
+            }
             string? inputFile = null;
 
             if (Arguments.IsArgumentSet("help"))
@@ -48,7 +56,7 @@ namespace LastPassPwndTest
             }
 
             defaultColor = Console.ForegroundColor;
-            
+
             if (inputFile is null)
             {
                 Console.Write("Please provide an input file path: ");
@@ -57,60 +65,74 @@ namespace LastPassPwndTest
 
             if (inputFile is null)
             {
-                Console.Error.Write("No input file provided.");
+                Console.Error.WriteLine($"[ERROR] No input file provided.");
                 return;
             }
             if (!File.Exists(inputFile))
             {
-                Console.Error.Write($"[ERROR] File {inputFile} does not exist.");
+                Console.Error.WriteLine($"[ERROR] File {inputFile} does not exist.");
                 return;
             }
 
             bool outputSet = Arguments.IsArgumentSet("outputfile");
 
-            var entries = ReadEntries(inputFile);
-            ParseEntires(entries, out var safeEntries, out var unsafeEntries, !outputSet);
-            
-            if (!outputSet)
+            try
             {
-                if (Arguments.IsArgumentSet("showsafe"))
-                {
-                    ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), true);
-                }
-                else if (Arguments.IsArgumentSet("showpwned"))
-                {
-                    ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), true);
-                }
-                else if (Arguments.IsArgumentSet("showall"))
-                {
-                    ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), true);
-                    ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), true);
-                }
-                else
-                {
-                    while (InteractivePrompt(safeEntries, unsafeEntries)) ;
-                }
-            }
-            else
-            {
-                var outputFile = (string)Arguments.GetArgumentData("outputfile");
-                string result;
-                if (Arguments.IsArgumentSet("showsafe"))
-                {
-                    result = ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), false);
-                }
-                else if (Arguments.IsArgumentSet("showpwned"))
-                {
-                    result = ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), false);
-                }
-                else
-                {
-                    result = ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), false);
-                    result += ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), false);
-                }
-                File.WriteAllText(outputFile, result);
-            }
+                var entries = ReadEntries(inputFile);
+                ParseEntires(entries, out var safeEntries, out var unsafeEntries, !outputSet);
 
+                if (!outputSet)
+                {
+                    if (Arguments.IsArgumentSet("showsafe"))
+                    {
+                        ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), true);
+                    }
+                    else if (Arguments.IsArgumentSet("showpwned"))
+                    {
+                        ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), true);
+                    }
+                    else if (Arguments.IsArgumentSet("showall"))
+                    {
+                        ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), true);
+                        ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), true);
+                    }
+                    else
+                    {
+                        while (InteractivePrompt(safeEntries, unsafeEntries)) ;
+                    }
+                }
+                else
+                {
+                    var outputFile = (string)Arguments.GetArgumentData("outputfile");
+                    string result;
+                    if (Arguments.IsArgumentSet("showsafe"))
+                    {
+                        result = ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), false);
+                    }
+                    else if (Arguments.IsArgumentSet("showpwned"))
+                    {
+                        result = ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), false);
+                    }
+                    else
+                    {
+                        result = ShowEntries(safeEntries, true, Arguments.IsArgumentSet("includepassword"), false);
+                        result += ShowEntries(unsafeEntries, false, Arguments.IsArgumentSet("includepassword"), false);
+                    }
+                    try
+                    {
+                        File.WriteAllText(outputFile, result);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.Error.WriteLine($"[ERROR] Error writing to file: {ex.Message}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.Error.WriteLine($"[ERROR] Unexpected error when parsing data: {ex.Message}");
+                return;
+            }
         }
 
         private static string ShowEntries(List<PasswordEntry> entries, bool safe, bool showPassword, bool verbose)
